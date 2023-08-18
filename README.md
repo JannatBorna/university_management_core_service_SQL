@@ -74,7 +74,7 @@ That's it! You have successfully set up the University Management Core Service S
 
 Happy coding!
 
-## ER Diagram
+## ER Diagram 1
 
 ![My Remote Image](https://i.ibb.co/Ln2FttV/university-management-core-service-module-1.png?dl=0)
 <!-- <img src="https://i.ibb.co/Ln2FttV/university-management-core-service-module-1.png" -->
