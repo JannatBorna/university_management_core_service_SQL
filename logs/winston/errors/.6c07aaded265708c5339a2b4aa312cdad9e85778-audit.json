@@ -1,0 +1,35 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/Users/jannatborna/Documents/WEB-DEVELOPER/Next-Level-WD/Miss-6-SQL/university-management-core-service-starter/logs/winston/errors/.6c07aaded265708c5339a2b4aa312cdad9e85778-audit.json",
+    "files": [
+        {
+            "date": 1692351865459,
+            "name": "/Users/jannatborna/Documents/WEB-DEVELOPER/Next-Level-WD/Miss-6-SQL/university-management-core-service-starter/logs/winston/errors/phu-2023-18-08-15-error.log",
+            "hash": "0c341532cdb18c4015d4982430750ec17b5564a9287138de0ae7601dd6f9a52b"
+        },
+        {
+            "date": 1692366369218,
+            "name": "/Users/jannatborna/Documents/WEB-DEVELOPER/Next-Level-WD/Miss-6-SQL/university-management-core-service-starter/logs/winston/errors/phu-2023-18-08-19-error.log",
+            "hash": "eb08ea4fefd427d18eb105baac8a50f88ceb6f111c037830a10bbacb658ba2c4"
+        },
+        {
+            "date": 1692367209115,
+            "name": "/Users/jannatborna/Documents/WEB-DEVELOPER/Next-Level-WD/Miss-6-SQL/university-management-core-service-starter/logs/winston/errors/phu-2023-18-08-20-error.log",
+            "hash": "e9f671f9964886158838422ed65c2b4e95f4ba7b68c8737f869f0080fa3316a4"
+        },
+        {
+            "date": 1692407926397,
+            "name": "/Users/jannatborna/Documents/WEB-DEVELOPER/Next-Level-WD/Miss-6-SQL/university-management-core-service-starter/logs/winston/errors/phu-2023-19-08-07-error.log",
+            "hash": "3345a568d5a132fb7feb5c438442047676f38e532657b574200e67c9272ea2e4"
+        },
+        {
+            "date": 1692410606802,
+            "name": "/Users/jannatborna/Documents/WEB-DEVELOPER/Next-Level-WD/Miss-6-SQL/university-management-core-service-starter/logs/winston/errors/phu-2023-19-08-08-error.log",
+            "hash": "7e463c4e147c6379685122a35bd1fade7460930cf937e250da3db84322f7cbcd"
+        }
+    ],
+    "hashType": "sha256"
+}
