@@ -4,6 +4,8 @@ import { AcademicSemesterController } from './academicSemester.controller';
 import { AcademicSemesterValidation } from './academicSemester.validation';
 
 const router = express.Router();
+// id dara single data get
+router.get('/:id', AcademicSemesterController.getDataById);
 // get  data fetched
 router.get('/', AcademicSemesterController.getAllFromDB);
 

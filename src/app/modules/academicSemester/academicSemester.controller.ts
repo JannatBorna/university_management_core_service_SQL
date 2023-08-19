@@ -4,6 +4,7 @@ import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
 import pick from '../../../shared/pick';
 import sendResponse from '../../../shared/sendResponse';
+import { AcademicSemesterSearchFilterAbleFields } from './academicSemester.contants';
 import { AcademicSemesterService } from './academicSemester.service';
 
 // create
@@ -28,7 +29,7 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
     'startMonth',
     'endMonth',
   ]);
-  const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+  const options = pick(req.query, AcademicSemesterSearchFilterAbleFields);
   //   console.log('filters', filters);
   //   console.log('options', options);
   const result = await AcademicSemesterService.getAllFromDB(filters, options);
@@ -41,7 +42,19 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// id dara single data get
+const getDataById = catchAsync(async (req: Request, res: Response) => {
+  const result = await AcademicSemesterService.getDataById(req.params.id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Acedemic Semster data fetched !!',
+    data: result,
+  });
+});
+
 export const AcademicSemesterController = {
   insertIntoDB,
   getAllFromDB,
+  getDataById,
 };

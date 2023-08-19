@@ -29,6 +29,11 @@
             "date": 1692410606802,
             "name": "/Users/jannatborna/Documents/WEB-DEVELOPER/Next-Level-WD/Miss-6-SQL/university-management-core-service-starter/logs/winston/errors/phu-2023-19-08-08-error.log",
             "hash": "7e463c4e147c6379685122a35bd1fade7460930cf937e250da3db84322f7cbcd"
+        },
+        {
+            "date": 1692414210719,
+            "name": "/Users/jannatborna/Documents/WEB-DEVELOPER/Next-Level-WD/Miss-6-SQL/university-management-core-service-starter/logs/winston/errors/phu-2023-19-08-09-error.log",
+            "hash": "ee321bb51ab4fd29e3a5a8389d0de8ebfc53485b2099d605ab02e59cbda1616f"
         }
     ],
     "hashType": "sha256"
