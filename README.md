@@ -81,5 +81,5 @@ Happy coding!
 
 ## ER Diagram 2
 
-![My Remote Image](<<https://i.ibb.co/tJ4nt6T/Screenshot-2023-08-20-at-7-32-11-PM.png?dl=0>)
+![My Remote Image 2](https://i.ibb.co/tJ4nt6T/Screenshot-2023-08-20-at-7-32-11-PM.png?dl=0)
 <!-- <img src="https://i.ibb.co/tJ4nt6T/Screenshot-2023-08-20-at-7-32-11-PM.png" alt="ER Diagram"> </img> -->
