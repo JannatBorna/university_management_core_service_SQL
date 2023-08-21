@@ -125,3 +125,30 @@ model Room {
 
 @@map("rooms")
 }
+
+model Course {
+  id           String        @id @default(uuid())
+  title        String
+  code         String
+  credits      Int           @default(0)
+  createAt     DateTime      @default(now())
+  updateAt     DateTime      @updatedAt
+
+  // relation 2 ta same smae tai ay vabe kora hoyese
+  preRequisite CourseToPrerequisite[] @relation("CourseToPrerequisite")
+  PreRequisiteFor CourseToPrerequisite[] @relation("PrerequisiteToCourse")
+
+  @@map("courses")
+}
+
+model CourseToPrerequisite {
+
+  course Course @relation(fields: [courseId], references: [id],name: "CourseToPrerequisite")
+  courseId         String
+
+  prerequisite Course @relation(fields: [prerequisiteId], references: [id], name: "PrerequisiteToCourse")
+  prerequisiteId   String
+
+  @@id([courseId, prerequisiteId]) // ekhne kno pk id nai (courseId, prerequisiteId) pk id tai ei vabe dite hobe
+
+}
