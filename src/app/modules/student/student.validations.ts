@@ -41,6 +41,9 @@ const create = z.object({
   }),
 });
 
+//update
+// ay khanye kaj hole (routes) kaj korbo
+
 const update = z.object({
   body: z.object({
     studentId: z.string().optional(),

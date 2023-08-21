@@ -109,8 +109,48 @@ const getByIdFromDB = async (id: string): Promise<Student | null> => {
   return result;
 };
 
+//update
+// sob gulo data update toh korbo na tai (partial) use korbo
+// amra kokhno 1 ta data update korte pari bha kokhno 1 er odhik data update korte pari tai (validation) use korbo
+const updateIntoDB = async (
+  id: string,
+  payload: Partial<Student>
+): Promise<Student> => {
+  const result = await prisma.student.update({
+    where: {
+      id,
+    },
+    data: payload,
+    // je son jinis dekte chai
+    include: {
+      academicSemester: true,
+      academicFaculty: true,
+      academicDepartment: true,
+    },
+  });
+  return result;
+};
+
+// delete
+const deleteFromDB = async (id: string): Promise<Student> => {
+  const result = await prisma.student.delete({
+    where: {
+      id,
+    },
+    // je son jinis dekte chai
+    include: {
+      academicSemester: true,
+      academicFaculty: true,
+      academicDepartment: true,
+    },
+  });
+  return result;
+};
+
 export const StudentService = {
   insertIntoDB,
   getAllFromDB,
   getByIdFromDB,
+  updateIntoDB,
+  deleteFromDB,
 };
