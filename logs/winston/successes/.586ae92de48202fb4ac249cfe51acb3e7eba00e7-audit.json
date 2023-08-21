@@ -59,6 +59,16 @@
             "date": 1692619223055,
             "name": "/Users/jannatborna/Documents/WEB-DEVELOPER/Next-Level-WD/Miss-6-SQL/university-management-core-service-starter/logs/winston/successes/phu-2023-21-08-18-success.log",
             "hash": "f367be3318165b5ff1330e3dbb4c011bbf0122fb5abb13c3ea5d2b30429400a9"
+        },
+        {
+            "date": 1692625215577,
+            "name": "/Users/jannatborna/Documents/WEB-DEVELOPER/Next-Level-WD/Miss-6-SQL/university-management-core-service-starter/logs/winston/successes/phu-2023-21-08-19-success.log",
+            "hash": "96a3aecb978cc92fc36b2f3bd039b2072f7fddce9e0b2bbb82252078cfb4028a"
+        },
+        {
+            "date": 1692626424048,
+            "name": "/Users/jannatborna/Documents/WEB-DEVELOPER/Next-Level-WD/Miss-6-SQL/university-management-core-service-starter/logs/winston/successes/phu-2023-21-08-20-success.log",
+            "hash": "94b0293c08a9fa9cbb6d8f687e4c10ed8b2657dba62a0c252dbf12a55f36afb8"
         }
     ],
     "hashType": "sha256"
