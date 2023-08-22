@@ -24,6 +24,11 @@
             "date": 1692694805812,
             "name": "/Users/jannatborna/Documents/WEB-DEVELOPER/Next-Level-WD/Miss-6-SQL/UV_auth_core_service/logs/winston/successes/phu-2023-22-08-15-success.log",
             "hash": "e027f3b4cbd5adf19eb56bdca3482a7f2fafdfc969918565907acc7eff506812"
+        },
+        {
+            "date": 1692710561503,
+            "name": "/Users/jannatborna/Documents/WEB-DEVELOPER/Next-Level-WD/Miss-6-SQL/UV_auth_core_service/logs/winston/successes/phu-2023-22-08-19-success.log",
+            "hash": "59920884e313b01177ba64bd3bc6dcbfa275cd9a130a50751b67195c7ff98b8a"
         }
     ],
     "hashType": "sha256"

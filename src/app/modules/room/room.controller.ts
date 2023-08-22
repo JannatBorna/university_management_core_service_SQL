@@ -14,6 +14,18 @@ const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+// get all data
+const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
+  const result = await RoomService.getAllFromDB();
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Room data fetch sucessfully',
+    meta: result.meta,
+    data: result.data,
+  });
+});
+
 //delete
 const deleteByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -29,4 +41,5 @@ const deleteByIdFromDB = catchAsync(async (req: Request, res: Response) => {
 export const RoomController = {
   insertIntoDB,
   deleteByIdFromDB,
+  getAllFromDB,
 };
