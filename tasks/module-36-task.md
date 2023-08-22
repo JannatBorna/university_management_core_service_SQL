@@ -15,4 +15,4 @@
 ### 3. Add Zod validations in the following modules
 
     * Room   -- done  ✅
-    * Course
+    * Course -- done  ✅

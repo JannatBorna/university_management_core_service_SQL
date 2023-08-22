@@ -15,6 +15,19 @@ const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+//delate
+const deleteFromDB = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await CourseService.deleteByIdFromDB(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Course delete successfully',
+    data: result,
+  });
+});
+
 export const CourseController = {
   insertIntoDB,
+  deleteFromDB,
 };

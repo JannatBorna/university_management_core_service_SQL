@@ -12,4 +12,7 @@ router.post(
   CourseController.insertIntoDB
 );
 
+//delete
+router.delete('/:id', CourseController.deleteFromDB);
+
 export const courseRoutes = router;

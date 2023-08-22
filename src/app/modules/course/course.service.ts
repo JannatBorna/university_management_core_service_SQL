@@ -1,3 +1,4 @@
+import { Course } from '@prisma/client';
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
 import prisma from '../../../shared/prisma';
@@ -55,6 +56,31 @@ const insertIntoDB = async (data: ICourseCreateData): Promise<any> => {
 
   throw new ApiError(httpStatus.BAD_REQUEST, 'unable to create course');
 };
+
+// delete
+const deleteByIdFromDB = async (id: string): Promise<Course> => {
+  await prisma.courseToPrerequisite.deleteMany({
+    where: {
+      OR: [
+        {
+          courseId: id,
+        },
+        {
+          prerequisiteId: id,
+        },
+      ],
+    },
+  });
+
+  const result = await prisma.course.delete({
+    where: {
+      id,
+    },
+  });
+  return result;
+};
+
 export const CourseService = {
   insertIntoDB,
+  deleteByIdFromDB,
 };
