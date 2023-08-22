@@ -13,4 +13,6 @@ router.post(
   RoomController.insertIntoDB
 );
 
+router.delete('/:id', RoomController.deleteByIdFromDB);
+
 export const roomRoutes = router;
