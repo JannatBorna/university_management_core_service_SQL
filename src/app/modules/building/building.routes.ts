@@ -16,4 +16,7 @@ router.post(
   BuildingController.getAllFromDB
 );
 
+//delete
+router.delete('/:id', BuildingController.deleteByIdFrom);
+
 export const buildingRoutes = router;
