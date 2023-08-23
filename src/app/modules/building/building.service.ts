@@ -67,6 +67,20 @@ const getAllFromDB = async (
   };
 };
 
+//updated
+const updateOneInDB = async (
+  id: string,
+  payload: Partial<Building>
+): Promise<Building> => {
+  const result = await prisma.building.update({
+    where: {
+      id,
+    },
+    data: payload,
+  });
+  return result;
+};
+
 // delete
 const deleteByIdFrom = async (id: string): Promise<Building> => {
   const result = await prisma.building.delete({
@@ -80,5 +94,6 @@ const deleteByIdFrom = async (id: string): Promise<Building> => {
 export const BuildingService = {
   insertIntoDB,
   getAllFromDB,
+  updateOneInDB,
   deleteByIdFrom,
 };

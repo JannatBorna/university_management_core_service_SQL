@@ -16,6 +16,9 @@ router.post(
   BuildingController.getAllFromDB
 );
 
+//update
+router.patch('/:id', BuildingController.updateOneInDB);
+
 //delete
 router.delete('/:id', BuildingController.deleteByIdFrom);
 

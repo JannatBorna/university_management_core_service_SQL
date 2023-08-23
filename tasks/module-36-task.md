@@ -18,7 +18,7 @@
         * get all data fetching ✅
         * Filter data, 
         * get data by id, 
-        * update
+        * update ✅
         * delete done, ✅
 
     * Course (Filter data, get data by id, update and delete)

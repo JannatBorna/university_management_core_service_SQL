@@ -30,6 +30,18 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
     data: result.data,
   });
 });
+//updated
+const updateOneInDB = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const payload = req.body;
+  const result = await BuildingService.updateOneInDB(id, payload);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Building updated sucessfully',
+    data: result,
+  });
+});
 
 //delete
 const deleteByIdFrom = catchAsync(async (req: Request, res: Response) => {
@@ -46,5 +58,6 @@ const deleteByIdFrom = catchAsync(async (req: Request, res: Response) => {
 export const BuildingController = {
   insertIntoDB,
   getAllFromDB,
+  updateOneInDB,
   deleteByIdFrom,
 };
