@@ -10,22 +10,22 @@
 
     * Building (get data by id, update and delete data) 
         * get all data fetching ✅
-        * get data by id, 
+        * get data by id, ✅
         * update ✅
         * delete done, ✅
 
     * Room (Filter data, get data by id, update and delete)
         * get all data fetching ✅
-        * Filter data, 
-        * get data by id, 
+        * Filter data, ✅
+        * get data by id, ✅
         * update ✅
         * delete done, ✅
 
     * Course (Filter data, get data by id, update and delete)
         * get all data fetching ✅
-        * Filter data, 
-        * get data by id, 
-        * update ❌
+        * Filter data, ✅
+        * get data by id, ✅
+        * update 
         * delete done, ✅
 
 ### 3. Add Zod validations in the following modules

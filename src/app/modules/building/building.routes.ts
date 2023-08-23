@@ -5,8 +5,11 @@ import { BuildingValidations } from './building.validation';
 
 const router = express.Router();
 
-// router.post('/', BuildingController.insertIntoDB);
+// all data
 router.get('/', BuildingController.getAllFromDB);
+
+//single data
+router.get('/:id', BuildingController.getByIdFromDB);
 
 //validation
 router.post(

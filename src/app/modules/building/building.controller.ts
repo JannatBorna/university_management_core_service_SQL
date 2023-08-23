@@ -15,7 +15,7 @@ const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
-// Building Data Filtering
+// Building all Data Filtering
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
   // filter and option er kaj 1st controller a korbo tarpor service a korbo
   console.log(req.query);
@@ -30,6 +30,19 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
     data: result.data,
   });
 });
+
+// single data fetch
+const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await BuildingService.getByIdFromDB(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Building fetched successfully',
+    data: result,
+  });
+});
+
 //updated
 const updateOneInDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -58,6 +71,7 @@ const deleteByIdFrom = catchAsync(async (req: Request, res: Response) => {
 export const BuildingController = {
   insertIntoDB,
   getAllFromDB,
+  getByIdFromDB,
   updateOneInDB,
   deleteByIdFrom,
 };
