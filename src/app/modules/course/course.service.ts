@@ -57,6 +57,33 @@ const insertIntoDB = async (data: ICourseCreateData): Promise<any> => {
   throw new ApiError(httpStatus.BAD_REQUEST, 'unable to create course');
 };
 
+// updated
+// const updateOneInDB = async (
+// id: string,
+// payload: Partial<Course>
+// ): Promise<Course> => {
+// await prisma.courseToPrerequisite.updateMany({
+// where: {
+// OR: [
+// {
+// courseId: id,
+// },
+// {
+// prerequisiteId: id,
+// },
+// ],
+// },
+// data: payload,
+// });
+
+// const result = await prisma.course.update({
+// where: {
+// id,
+// },
+// });
+// return result;
+// };
+
 // delete
 const deleteByIdFromDB = async (id: string): Promise<Course> => {
   await prisma.courseToPrerequisite.deleteMany({

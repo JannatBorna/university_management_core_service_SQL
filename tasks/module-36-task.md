@@ -11,7 +11,7 @@
     * Building (get data by id, update and delete data) 
         * get all data fetching ✅
         * get data by id, 
-        * update
+        * update ✅
         * delete done, ✅
 
     * Room (Filter data, get data by id, update and delete)
