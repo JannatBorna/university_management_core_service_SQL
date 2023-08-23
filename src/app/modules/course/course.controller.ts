@@ -1,7 +1,9 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
+import pick from '../../../shared/pick';
 import sendResponse from '../../../shared/sendResponse';
+import { courseFilterableFields } from './course.constants';
 import { CourseService } from './course.service';
 
 const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
@@ -11,6 +13,32 @@ const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Course Created sucessfully',
+    data: result,
+  });
+});
+
+// all data fetch
+const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, courseFilterableFields);
+  const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+  const result = await CourseService.getAllFromDB(filters, options);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Courses fetched successfully',
+    meta: result.meta,
+    data: result.data,
+  });
+});
+
+// single data fetch
+const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await CourseService.getByIdFromDB(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Course single fetched successfully',
     data: result,
   });
 });
@@ -30,4 +58,6 @@ const deleteFromDB = catchAsync(async (req: Request, res: Response) => {
 export const CourseController = {
   insertIntoDB,
   deleteFromDB,
+  getAllFromDB,
+  getByIdFromDB,
 };

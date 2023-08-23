@@ -5,6 +5,13 @@ import { CourseValidation } from './course.validation';
 
 const router = express.Router();
 
+//all data
+router.get('/', CourseController.getAllFromDB);
+
+//single data
+router.get('/:id', CourseController.getByIdFromDB);
+
+// create
 router.post(
   '/',
   //   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN), // jwt token

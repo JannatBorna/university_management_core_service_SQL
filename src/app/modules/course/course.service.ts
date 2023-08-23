@@ -1,8 +1,12 @@
-import { Course } from '@prisma/client';
+import { Course, Prisma } from '@prisma/client';
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
+import { paginationHelpers } from '../../../helpers/paginationHelper';
+import { IGenericResponse } from '../../../interfaces/common';
+import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
-import { ICourseCreateData } from './course.interface';
+import { courseSearchableFields } from './course.constants';
+import { ICourseCreateData, ICourseFilterRequest } from './course.interface';
 
 const insertIntoDB = async (data: ICourseCreateData): Promise<any> => {
   const { preRequisiteCourses, ...courseData } = data;
@@ -57,32 +61,99 @@ const insertIntoDB = async (data: ICourseCreateData): Promise<any> => {
   throw new ApiError(httpStatus.BAD_REQUEST, 'unable to create course');
 };
 
-// updated
-// const updateOneInDB = async (
-// id: string,
-// payload: Partial<Course>
-// ): Promise<Course> => {
-// await prisma.courseToPrerequisite.updateMany({
-// where: {
-// OR: [
-// {
-// courseId: id,
-// },
-// {
-// prerequisiteId: id,
-// },
-// ],
-// },
-// data: payload,
-// });
+// all data fetch
+const getAllFromDB = async (
+  filters: ICourseFilterRequest,
+  options: IPaginationOptions
+): Promise<IGenericResponse<Course[]>> => {
+  const { limit, page, skip } = paginationHelpers.calculatePagination(options);
+  const { searchTerm, ...filterData } = filters;
 
-// const result = await prisma.course.update({
-// where: {
-// id,
-// },
-// });
-// return result;
-// };
+  const andConditions = [];
+
+  if (searchTerm) {
+    andConditions.push({
+      OR: courseSearchableFields.map(field => ({
+        [field]: {
+          contains: searchTerm,
+          mode: 'insensitive',
+        },
+      })),
+    });
+  }
+
+  if (Object.keys(filterData).length > 0) {
+    andConditions.push({
+      AND: Object.keys(filterData).map(key => ({
+        [key]: {
+          equals: (filterData as any)[key],
+        },
+      })),
+    });
+  }
+
+  const whereConditions: Prisma.CourseWhereInput =
+    andConditions.length > 0 ? { AND: andConditions } : {};
+
+  const result = await prisma.course.findMany({
+    include: {
+      preRequisite: {
+        include: {
+          prerequisite: true,
+        },
+      },
+      PreRequisiteFor: {
+        include: {
+          course: true,
+        },
+      },
+    },
+    where: whereConditions,
+    skip,
+    take: limit,
+    orderBy:
+      options.sortBy && options.sortOrder
+        ? { [options.sortBy]: options.sortOrder }
+        : {
+            createAt: 'desc',
+          },
+  });
+  const total = await prisma.course.count({
+    where: whereConditions,
+  });
+
+  return {
+    meta: {
+      total,
+      page,
+      limit,
+    },
+    data: result,
+  };
+};
+
+const getByIdFromDB = async (id: string): Promise<Course | null> => {
+  const result = await prisma.course.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      preRequisite: {
+        include: {
+          prerequisite: true,
+        },
+      },
+      PreRequisiteFor: {
+        include: {
+          course: true,
+        },
+      },
+    },
+  });
+  return result;
+};
+
+// updated
 
 // delete
 const deleteByIdFromDB = async (id: string): Promise<Course> => {
@@ -109,5 +180,7 @@ const deleteByIdFromDB = async (id: string): Promise<Course> => {
 
 export const CourseService = {
   insertIntoDB,
+  getAllFromDB,
+  getByIdFromDB,
   deleteByIdFromDB,
 };
