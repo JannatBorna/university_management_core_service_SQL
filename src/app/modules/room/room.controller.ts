@@ -26,6 +26,19 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+//updated
+const updateOneInDB = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const payload = req.body;
+  const result = await RoomService.updateOneInDB(id, payload);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Room updated sucessfully',
+    data: result,
+  });
+});
+
 //delete
 const deleteByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -40,6 +53,7 @@ const deleteByIdFromDB = catchAsync(async (req: Request, res: Response) => {
 
 export const RoomController = {
   insertIntoDB,
-  deleteByIdFromDB,
   getAllFromDB,
+  updateOneInDB,
+  deleteByIdFromDB,
 };

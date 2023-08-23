@@ -13,8 +13,13 @@ router.post(
   RoomController.insertIntoDB
 );
 
+//get all data
 router.get('/', RoomController.getAllFromDB);
 
+//update
+router.patch('/:id', RoomController.updateOneInDB);
+
+//delete
 router.delete('/:id', RoomController.deleteByIdFromDB);
 
 export const roomRoutes = router;
