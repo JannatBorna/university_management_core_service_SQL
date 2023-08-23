@@ -22,6 +22,7 @@ const insertIntoDB = async (data: Student): Promise<Student> => {
   return result;
 };
 
+// all data fetch
 const getAllFromDB = async (
   filters: IStudentFilterRequest,
   options: IPaginationOptions
@@ -95,6 +96,7 @@ const getAllFromDB = async (
   };
 };
 
+// single data fetch
 const getByIdFromDB = async (id: string): Promise<Student | null> => {
   const result = await prisma.student.findUnique({
     where: {

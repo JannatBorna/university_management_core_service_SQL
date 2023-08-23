@@ -25,7 +25,7 @@
         * get all data fetching ✅
         * Filter data, 
         * get data by id, 
-        * update
+        * update ❌
         * delete done, ✅
 
 ### 3. Add Zod validations in the following modules

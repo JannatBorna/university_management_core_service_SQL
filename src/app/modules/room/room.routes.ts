@@ -5,16 +5,18 @@ import { RoomValidation } from './room.validation';
 
 const router = express.Router();
 
-// router.post('/', BuildingController.insertIntoDB);
+//get all data
+router.get('/', RoomController.getAllFromDB);
+
+// single data
+router.get('/:id', RoomController.getByIdFromDB);
+
 router.post(
   '/',
   //   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN), // jwt token
   validateRequest(RoomValidation.create),
   RoomController.insertIntoDB
 );
-
-//get all data
-router.get('/', RoomController.getAllFromDB);
 
 //update
 router.patch('/:id', RoomController.updateOneInDB);
