@@ -43,6 +43,19 @@ const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+//updated
+
+const updateOneInDB = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await CourseService.updateOneInDB(id, req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Course updated successfully',
+    data: result,
+  });
+});
+
 //delate
 const deleteFromDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
@@ -57,7 +70,8 @@ const deleteFromDB = catchAsync(async (req: Request, res: Response) => {
 
 export const CourseController = {
   insertIntoDB,
-  deleteFromDB,
   getAllFromDB,
   getByIdFromDB,
+  updateOneInDB,
+  deleteFromDB,
 };

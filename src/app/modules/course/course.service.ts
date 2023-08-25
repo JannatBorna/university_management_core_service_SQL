@@ -154,6 +154,77 @@ const getByIdFromDB = async (id: string): Promise<Course | null> => {
 };
 
 // updated
+const updateOneInDB = async (
+  id: string,
+  payload: ICourseCreateData
+): Promise<Course | null> => {
+  const { preRequisiteCourses, ...courseData } = payload;
+  await prisma.$transaction(async transactionClint => {
+    const result = await transactionClint.course.update({
+      where: {
+        id,
+      },
+      data: courseData,
+    });
+    if (!result) {
+      throw new ApiError(httpStatus.BAD_REQUEST, 'Unable to update course');
+    }
+    if (preRequisiteCourses && preRequisiteCourses.length > 0) {
+      const deletePrerequisite = preRequisiteCourses.filter(
+        coursePrerequisite =>
+          coursePrerequisite.courseId && coursePrerequisite.isDeleted
+      );
+
+      const newPrerequisite = preRequisiteCourses.filter(
+        coursePrerequisite =>
+          coursePrerequisite.courseId && !coursePrerequisite.isDeleted
+      );
+      for (let index = 0; index < deletePrerequisite.length; index++) {
+        await transactionClint.courseToPrerequisite.deleteMany({
+          where: {
+            AND: [
+              {
+                courseId: id,
+              },
+              {
+                prerequisiteId: deletePrerequisite[index].courseId,
+              },
+            ],
+          },
+        });
+      }
+      for (let index = 0; index < newPrerequisite.length; index++) {
+        await transactionClint.courseToPrerequisite.create({
+          data: {
+            courseId: id,
+            prerequisiteId: newPrerequisite[index].courseId,
+          },
+        });
+      }
+    }
+    return result;
+  });
+
+  const responseData = await prisma.course.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      preRequisite: {
+        include: {
+          prerequisite: true,
+        },
+      },
+
+      PreRequisiteFor: {
+        include: {
+          course: true,
+        },
+      },
+    },
+  });
+  return responseData;
+};
 
 // delete
 const deleteByIdFromDB = async (id: string): Promise<Course> => {
@@ -182,5 +253,6 @@ export const CourseService = {
   insertIntoDB,
   getAllFromDB,
   getByIdFromDB,
+  updateOneInDB,
   deleteByIdFromDB,
 };

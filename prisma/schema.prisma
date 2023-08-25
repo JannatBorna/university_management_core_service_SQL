@@ -135,8 +135,8 @@ model Course {
   updateAt     DateTime      @updatedAt
 
   // relation 2 ta same smae tai ay vabe kora hoyese
-  preRequisite CourseToPrerequisite[] @relation("CourseToPrerequisite")
-  PreRequisiteFor CourseToPrerequisite[] @relation("PrerequisiteToCourse")
+  preRequisite CourseToPrerequisite[] @relation("CourseToPrerequisite") // courseId
+  PreRequisiteFor CourseToPrerequisite[] @relation("PrerequisiteToCourse") // prerequisiteId
 
   @@map("courses")
 }
