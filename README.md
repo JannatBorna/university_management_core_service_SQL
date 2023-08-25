@@ -79,7 +79,13 @@ Happy coding!
 ![My Remote Image](https://i.ibb.co/Ln2FttV/university-management-core-service-module-1.png?dl=0)
 <!-- <img src="https://i.ibb.co/Ln2FttV/university-management-core-service-module-1.png" alt="ER Diagram"> </img> -->
 
-## ER Diagram 2
+## ER Diagram 2 (module-36)
 
 ![My Remote Image 2](https://i.ibb.co/tJ4nt6T/Screenshot-2023-08-20-at-7-32-11-PM.png?dl=0)
 <!-- <img src="https://i.ibb.co/tJ4nt6T/Screenshot-2023-08-20-at-7-32-11-PM.png" alt="ER Diagram"> </img> -->
+
+## ER Diagram 3 (Module-37)
+
+![My Remote Image 3](https://i.ibb.co/DV7Jwd8/university-management-core-service-Page-2-drawio.png?dl=0)
+
+<!-- <img src="https://i.ibb.co/DV7Jwd8/university-management-core-service-Page-2-drawio.png" alt="ER Diagram"> </img> -->
