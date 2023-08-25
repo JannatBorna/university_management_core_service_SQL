@@ -29,6 +29,7 @@ const insertIntoDB = async (
   return result;
 };
 
+// all data fetch
 const getAllFromDB = async (
   filters: IAcademicDepartmentFilterRequest,
   options: IPaginationOptions
@@ -102,6 +103,7 @@ const getAllFromDB = async (
   };
 };
 
+// single data fetch
 const getByIdFromDB = async (
   id: string
 ): Promise<AcademicDepartment | null> => {
@@ -116,8 +118,40 @@ const getByIdFromDB = async (
   return result;
 };
 
+//update
+const updateOneInDB = async (
+  id: string,
+  payload: Partial<AcademicDepartment>
+): Promise<AcademicDepartment> => {
+  const result = await prisma.academicDepartment.update({
+    where: {
+      id,
+    },
+    data: payload,
+    include: {
+      academicFaculty: true,
+    },
+  });
+  return result;
+};
+
+// delete
+const deleteByIdFromDB = async (id: string): Promise<AcademicDepartment> => {
+  const result = await prisma.academicDepartment.delete({
+    where: {
+      id,
+    },
+    include: {
+      academicFaculty: true,
+    },
+  });
+  return result;
+};
+
 export const AcademicDepartmentService = {
   insertIntoDB,
   getAllFromDB,
   getByIdFromDB,
+  updateOneInDB,
+  deleteByIdFromDB,
 };

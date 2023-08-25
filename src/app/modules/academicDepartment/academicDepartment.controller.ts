@@ -16,6 +16,7 @@ const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+//all data fetch
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, academicDepartmentFilterableFields);
   const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
@@ -29,6 +30,7 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+//single data fetch
 const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await AcademicDepartmentService.getByIdFromDB(id);
@@ -40,8 +42,34 @@ const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+//update
+const updateOneInDB = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await AcademicDepartmentService.updateOneInDB(id, req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'AcademicDepartment updated successfully',
+    data: result,
+  });
+});
+
+//delete
+const deleteByIdFromDB = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await AcademicDepartmentService.deleteByIdFromDB(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'AcademicDepartment delete successfully',
+    data: result,
+  });
+});
+
 export const AcademicDepartmentController = {
   insertIntoDB,
   getAllFromDB,
   getByIdFromDB,
+  updateOneInDB,
+  deleteByIdFromDB,
 };

@@ -89,8 +89,34 @@ const getByIdFromDB = async (id: string): Promise<AcademicFaculty | null> => {
   return result;
 };
 
+//updated
+const updateOneInDB = async (
+  id: string,
+  payload: Partial<AcademicFaculty>
+): Promise<AcademicFaculty> => {
+  const result = await prisma.academicFaculty.update({
+    where: {
+      id,
+    },
+    data: payload,
+  });
+  return result;
+};
+
+//deleted
+const deleteByIdFromDB = async (id: string): Promise<AcademicFaculty> => {
+  const result = await prisma.academicFaculty.delete({
+    where: {
+      id,
+    },
+  });
+  return result;
+};
+
 export const AcademicFacultyService = {
   insertIntoDB,
   getAllFromDB,
   getByIdFromDB,
+  updateOneInDB,
+  deleteByIdFromDB,
 };
