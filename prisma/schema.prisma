@@ -95,10 +95,11 @@ model Faculty {
   updatedAt             DateTime  @updatedAt
 
   academicDepartment AcademicDepartment @relation(fields: [academicDepartmentId], references: [id])
-  academicDepartmentId String
+  academicDepartmentId  String
 
   academicFaculty AcademicFaculty @relation(fields: [academicFacultyId], references: [id])
   academicFacultyId    String
+  courses              CourseFaculty[]
 
   @@map("faculties")
 }
@@ -127,16 +128,17 @@ model Room {
 }
 
 model Course {
-  id           String        @id @default(uuid())
-  title        String
-  code         String
-  credits      Int           @default(0)
-  createAt     DateTime      @default(now())
-  updateAt     DateTime      @updatedAt
+  id              String        @id @default(uuid())
+  title           String
+  code            String
+  credits         Int           @default(0)
+  createAt        DateTime      @default(now())
+  updateAt        DateTime      @updatedAt
 
   // relation 2 ta same smae tai ay vabe kora hoyese
-  preRequisite CourseToPrerequisite[] @relation("CourseToPrerequisite") // courseId
+  preRequisite    CourseToPrerequisite[] @relation("CourseToPrerequisite") // courseId
   PreRequisiteFor CourseToPrerequisite[] @relation("PrerequisiteToCourse") // prerequisiteId
+  faculties       CourseFaculty[]
 
   @@map("courses")
 }
@@ -151,4 +153,16 @@ model CourseToPrerequisite {
 
   @@id([courseId, prerequisiteId]) // ekhne kno pk id nai (courseId, prerequisiteId) pk id tai ei vabe dite hobe
 
+}
+
+model CourseFaculty {
+
+  course Course @relation(fields: [courseId], references: [id])
+  courseId String
+
+  faculty Faculty @relation(fields: [facultyId], references: [id])
+  facultyId String
+
+  @@id([courseId, facultyId])
+  @@map("course_faculties")
 }

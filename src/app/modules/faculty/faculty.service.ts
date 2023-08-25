@@ -21,6 +21,7 @@ const insertIntoDB = async (data: Faculty): Promise<Faculty> => {
   return result;
 };
 
+// all data fetch
 const getAllFromDB = async (
   filters: IFacultyFilterRequest,
   options: IPaginationOptions
@@ -93,8 +94,41 @@ const getAllFromDB = async (
   };
 };
 
+// single data fetch
 const getByIdFromDB = async (id: string): Promise<Faculty | null> => {
   const result = await prisma.faculty.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      academicFaculty: true,
+      academicDepartment: true,
+    },
+  });
+  return result;
+};
+
+//updated
+const updateOneInDB = async (
+  id: string,
+  payload: Partial<Faculty>
+): Promise<Faculty> => {
+  const result = await prisma.faculty.update({
+    where: {
+      id,
+    },
+    data: payload,
+    include: {
+      academicFaculty: true,
+      academicDepartment: true,
+    },
+  });
+  return result;
+};
+
+// deleted
+const deleteByIdFromDB = async (id: string): Promise<Faculty> => {
+  const result = await prisma.faculty.delete({
     where: {
       id,
     },
@@ -110,4 +144,6 @@ export const FacultyService = {
   insertIntoDB,
   getAllFromDB,
   getByIdFromDB,
+  updateOneInDB,
+  deleteByIdFromDB,
 };

@@ -87,5 +87,4 @@ Happy coding!
 ## ER Diagram 3 (Module-37)
 
 ![My Remote Image 3](https://i.ibb.co/DV7Jwd8/university-management-core-service-Page-2-drawio.png?dl=0)
-
 <!-- <img src="https://i.ibb.co/DV7Jwd8/university-management-core-service-Page-2-drawio.png" alt="ER Diagram"> </img> -->
