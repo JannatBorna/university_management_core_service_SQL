@@ -29,9 +29,19 @@ router.delete(
 );
 
 // Assign-courses
-router.post('/:id/assign-courses', FacultyController.assignCourses);
+router.post(
+  '/:id/assign-courses',
+  validateRequest(FacultyValidation.assignOrRemoveCourses),
+  // auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN)
+  FacultyController.assignCourses
+);
 
 // remove-courses
-router.delete('/:id/remove-courses', FacultyController.removeCourses);
+router.delete(
+  '/:id/remove-courses',
+  validateRequest(FacultyValidation.assignOrRemoveCourses),
+  // auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN)
+  FacultyController.removeCourses
+);
 
 export const facultyRoutes = router;

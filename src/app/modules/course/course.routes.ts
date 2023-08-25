@@ -31,9 +31,19 @@ router.patch(
 router.delete('/:id', CourseController.deleteFromDB);
 
 // Assign-Faculties
-router.post('/:id/assign-faculties', CourseController.assignFaculties);
+router.post(
+  '/:id/assign-faculties',
+  validateRequest(CourseValidation.assignOrRemoveFaculties),
+  // auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN)
+  CourseController.assignFaculties
+);
 
 // remove-Faculties
-router.delete('/:id/remove-faculties', CourseController.removeFaculties);
+router.delete(
+  '/:id/remove-faculties',
+  validateRequest(CourseValidation.assignOrRemoveFaculties),
+  // auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN)
+  CourseController.removeFaculties
+);
 
 export const courseRoutes = router;
