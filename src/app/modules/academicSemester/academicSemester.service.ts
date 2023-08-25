@@ -121,6 +121,7 @@ const updateOneInDB = async (
 };
 
 // deleted
+
 const deleteByIdFromDB = async (id: string): Promise<AcademicSemester> => {
   const result = await prisma.academicSemester.delete({
     where: {

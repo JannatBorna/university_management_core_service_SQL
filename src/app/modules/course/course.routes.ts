@@ -30,4 +30,10 @@ router.patch(
 //delete
 router.delete('/:id', CourseController.deleteFromDB);
 
+// Assign-Faculties
+router.post('/:id/assign-faculties', CourseController.assignFaculties);
+
+// remove-Faculties
+router.delete('/:id/remove-faculties', CourseController.removeFaculties);
+
 export const courseRoutes = router;
