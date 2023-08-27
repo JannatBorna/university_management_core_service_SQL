@@ -1,10 +1,10 @@
 # 1.Intrgrate get data by id, filter data, update and delete functionalities in the following modules
 
-- Semester Registration ( filter, get single data by id, update and delete data )
+- Semester Registration ( filter, get single data by id, update and delete data )  --- done ✅
 
 ## 2. Add Zod validations and set role
 
-- Semester Registration
+- Semester Registration  --- done ✅
 
 ### Example data and time
 
