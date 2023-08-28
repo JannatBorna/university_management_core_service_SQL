@@ -1,11 +1,13 @@
 import express from 'express';
+import validateRequest from '../../middlewares/validateRequest';
 import { offeredCourseController } from './OfferedCourse.controller';
+import { OfferedCourseValidations } from './offeredCourse.validation';
 
 const router = express.Router();
 
 router.post(
   '/',
-  //   validateRequest(OfferedCourseValidations.create),
+  validateRequest(OfferedCourseValidations.create),
   //   auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   offeredCourseController.insertIntoDB
 );
