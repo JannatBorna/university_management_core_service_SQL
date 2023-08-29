@@ -1,9 +1,12 @@
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
+import pick from '../../../shared/pick';
 import sendResponse from '../../../shared/sendResponse';
-import { offeredCourseService } from './OfferedCourse.service';
+import { offeredCourseFilterableFields } from './offeredCourse.constants';
+import { offeredCourseService } from './offeredCourse.service';
 
+//create
 const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
   const result = await offeredCourseService.insertIntoDB(req.body);
   sendResponse(res, {
@@ -14,6 +17,60 @@ const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+//all data fetch
+const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, offeredCourseFilterableFields);
+  const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+  const result = await offeredCourseService.getAllFromDB(filters, options);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'OfferedCourses fetched successfully',
+    meta: result.meta,
+    data: result.data,
+  });
+});
+
+// single data fetch
+const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await offeredCourseService.getByIdFromDB(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'OfferedCourse fetched successfully',
+    data: result,
+  });
+});
+
+//update
+const updateOneInDB = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await offeredCourseService.updateOneInDB(id, req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'OfferedCourse updated successfully',
+    data: result,
+  });
+});
+
+//delete
+const deleteByIdFromDB = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const result = await offeredCourseService.deleteByIdFromDB(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'OfferedCourse deleted successfully',
+    data: result,
+  });
+});
+
 export const offeredCourseController = {
   insertIntoDB,
+  getAllFromDB,
+  getByIdFromDB,
+  updateOneInDB,
+  deleteByIdFromDB,
 };
