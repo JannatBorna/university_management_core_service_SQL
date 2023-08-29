@@ -5,4 +5,4 @@
 
 ## 2.  Add Zod validations and set role
 
-* Offered Course Section
+* Offered Course Section ✅
