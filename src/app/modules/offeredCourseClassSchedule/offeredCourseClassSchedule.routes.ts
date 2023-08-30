@@ -7,4 +7,4 @@ router.get('/', OfferedCourseClassScheduleController.getAllFromDB);
 
 router.post('/', OfferedCourseClassScheduleController.insertIntoDB);
 
-export const offeredCourseClassScheduleRouters = router;
+export const offeredCourseClassScheduleRoutes = router;

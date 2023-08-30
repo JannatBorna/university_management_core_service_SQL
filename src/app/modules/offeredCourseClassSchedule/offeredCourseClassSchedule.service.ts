@@ -9,12 +9,16 @@ import {
   offeredCourseClassScheduleSearchableFields,
 } from './offeredCourseClassSchedule.constants';
 import { IOfferedCourseClassScheduleFilterRequiest } from './offeredCourseClassSchedule.interface';
-import { offeredCourseClassScheduleUtils } from './offeredCourseClassSchedule.utils';
+import { OfferedCourseClassScheduleUtils } from './offeredCourseClassSchedule.utils';
 
 const insertIntoDB = async (
   data: OfferedCourseClassSchedule
 ): Promise<OfferedCourseClassSchedule> => {
-  await offeredCourseClassScheduleUtils.checkRoomAvailable(data);
+  await OfferedCourseClassScheduleUtils.checkRoomAvailable(data);
+  await OfferedCourseClassScheduleUtils.checkFacultyAvailable(data);
+
+  // existing: 12:30 - 13:30
+  // new slot: 12:50 - 13:50
 
   const result = await prisma.offeredCourseClassSchedule.create({
     data,
@@ -25,10 +29,10 @@ const insertIntoDB = async (
       faculty: true,
     },
   });
+
   return result;
 };
 
-//all data fetch
 const getAllFromDB = async (
   filters: IOfferedCourseClassScheduleFilterRequiest,
   options: IPaginationOptions
@@ -74,10 +78,10 @@ const getAllFromDB = async (
 
   const result = await prisma.offeredCourseClassSchedule.findMany({
     include: {
-      semesterRegistration: true,
       faculty: true,
-      offeredCourseSection: true,
+      semesterRegistration: true,
       room: true,
+      offeredCourseSection: true,
     },
     where: whereConditions,
     skip,
