@@ -74,17 +74,22 @@ That's it! You have successfully set up the University Management Core Service S
 
 Happy coding!
 
-## ER Diagram 1
+## ER Diagram 1 (module-35)
 
-![My Remote Image](https://i.ibb.co/Ln2FttV/university-management-core-service-module-1.png?dl=0)
-<!-- <img src="https://i.ibb.co/Ln2FttV/university-management-core-service-module-1.png" alt="ER Diagram"> </img> -->
+![My Remote Image 1](https://i.ibb.co/Ln2FttV/university-management-core-service-module-1.png?dl=0)
 
 ## ER Diagram 2 (module-36)
 
 ![My Remote Image 2](https://i.ibb.co/tJ4nt6T/Screenshot-2023-08-20-at-7-32-11-PM.png?dl=0)
-<!-- <img src="https://i.ibb.co/tJ4nt6T/Screenshot-2023-08-20-at-7-32-11-PM.png" alt="ER Diagram"> </img> -->
 
 ## ER Diagram 3 (Module-37)
 
 ![My Remote Image 3](https://i.ibb.co/DV7Jwd8/university-management-core-service-Page-2-drawio.png?dl=0)
-<!-- <img src="https://i.ibb.co/DV7Jwd8/university-management-core-service-Page-2-drawio.png" alt="ER Diagram"> </img> -->
+
+## ER Diagram 4 (Module-38)
+
+![My Remote Image 4](<https://i.ibb.co/x6yMTbh/module-38.png>?dl=0)
+
+## ER Diagram 5 (Module-39)
+
+![My Remote Image 5](<https://i.ibb.co/NVrkHG7/university-management-core-service-Page-1-drawio.png>?dl=0)
