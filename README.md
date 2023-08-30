@@ -88,8 +88,8 @@ Happy coding!
 
 ## ER Diagram 4 (Module-38)
 
-![My Remote Image 4](<https://i.ibb.co/x6yMTbh/module-38.png>?dl=0)
+![My Remote Image 4](https://i.ibb.co/x6yMTbh/module-38.png?dl=0)
 
 ## ER Diagram 5 (Module-39)
 
-![My Remote Image 5](<https://i.ibb.co/NVrkHG7/university-management-core-service-Page-1-drawio.png>?dl=0)
+![My Remote Image 5](https://i.ibb.co/NVrkHG7/university-management-core-service-Page-1-drawio.png?dl=0)
