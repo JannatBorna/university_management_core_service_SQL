@@ -78,6 +78,8 @@ model Student {
   academicFaculty AcademicFaculty @relation(fields: [academicFacultyId], references: [id])
   academicFacultyId    String
 
+  studentSemesterRegistrations StudentSemesterRegistration[]
+
   @@map("students")
 }
 
@@ -187,6 +189,7 @@ model SemesterRegistration {
   offeredCourses              OfferedCourse[]
   offeredCourseSections       OfferedCourseSection[]
   offeredCourseClassSchedules OfferedCourseClassSchedule[]
+  studentSemesterRegistrations StudentSemesterRegistration[]
 
   @@map("semester_registrations")
 }
@@ -253,6 +256,23 @@ model OfferedCourseClassSchedule{
 
   @@map("offered_course_class_schedules")
 }
+
+model StudentSemesterRegistration {
+  id                     String               @id @default(uuid())
+  isConfirmed            Boolean?             @default(false)
+  totalCreditsTaken      Int?                 @default(0)
+  createdAt              DateTime             @default(now())
+  updatedAt              DateTime             @updatedAt
+
+  student                Student              @relation(fields: [studentId], references: [id])
+  studentId              String
+
+  semesterRegistration   SemesterRegistration @relation(fields: [semesterRegistrationId], references: [id])
+  semesterRegistrationId String
+
+  @@map("student_semester_registrations")
+}
+
 
 enum SemesterRegistrationStatus {
   UPCOMING
