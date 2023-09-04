@@ -11,13 +11,12 @@ const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Building Created sucessfully',
+    message: 'Building created successfully!',
     data: result,
   });
 });
-// Building all Data Filtering
+
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
-  // filter and option er kaj 1st controller a korbo tarpor service a korbo
   console.log(req.query);
   const filters = pick(req.query, buildingFilterableFields);
   const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
@@ -25,13 +24,12 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Building data fatch sucessfully',
+    message: 'Building fetched successfully!',
     meta: result.meta,
     data: result.data,
   });
 });
 
-// single data fetch
 const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await BuildingService.getByIdFromDB(id);
@@ -43,23 +41,20 @@ const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-//updated
 const updateOneInDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const payload = req.body;
-  const result = await BuildingService.updateOneInDB(id, payload);
+  const result = await BuildingService.updateOneInDB(id, req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Building updated sucessfully',
+    message: 'Building updated successfully',
     data: result,
   });
 });
 
-//delete
-const deleteByIdFrom = catchAsync(async (req: Request, res: Response) => {
+const deleteByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const result = await BuildingService.deleteByIdFrom(id);
+  const result = await BuildingService.deleteByIdFromDB(id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -73,5 +68,5 @@ export const BuildingController = {
   getAllFromDB,
   getByIdFromDB,
   updateOneInDB,
-  deleteByIdFrom,
+  deleteByIdFromDB,
 };

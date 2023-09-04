@@ -1,3 +1,3 @@
 export const buildingFilterableFields = ['searchTerm'];
 
-export const buildingSearchAbleFields = ['title'];
+export const buildingSearchableFields = ['title'];
