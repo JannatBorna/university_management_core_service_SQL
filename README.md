@@ -93,3 +93,7 @@ Happy coding!
 ## ER Diagram 5 (Module-39)
 
 ![My Remote Image 5](https://i.ibb.co/NVrkHG7/university-management-core-service-Page-1-drawio.png?dl=0)
+
+## ER Diagram 6 (Module-41)
+
+![My Remote Image 6](https://i.ibb.co/fN9SVSG/module-41-drawio.png?dl=0)
