@@ -16,7 +16,10 @@ import {
   semesterRegistrationRelationalFieldsMapper,
   semesterRegistrationSearchableFields,
 } from './semesterRegistration.constants';
-import { ISemesterRegistrationFilterRequest } from './semesterRegistration.interface';
+import {
+  IEnrollCoursePayload,
+  ISemesterRegistrationFilterRequest,
+} from './semesterRegistration.interface';
 
 //created
 const insertIntoDB = async (
@@ -268,6 +271,82 @@ const startMyRegistration = async (
   };
 };
 
+//enrollIntoCourse table StudentSemesterRegistrationCourse
+const enrollIntoCourse = async (
+  authUserId: string,
+  payload: IEnrollCoursePayload
+) => {
+  const student = await prisma.student.findFirst({
+    where: {
+      studentId: authUserId,
+    },
+  });
+  console.log(student);
+  const semesterRegistration = await prisma.semesterRegistration.findFirst({
+    where: {
+      status: SemesterRegistrationStatus.ONGOING,
+    },
+  });
+
+  const offeredCourse = await prisma.offeredCourse.findFirst({
+    where: {
+      id: payload.offeredCourseId,
+    },
+  });
+  const offeredCourseSection = await prisma.offeredCourseSection.findFirst({
+    where: {
+      id: payload.offeredCourseSectionId,
+    },
+  });
+
+  console.log(offeredCourseSection);
+
+  if (!student) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Student not found !!');
+  }
+
+  if (!semesterRegistration) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      'semester Registration not found !!'
+    );
+  }
+  if (!offeredCourse) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'offered Coursen not found !!');
+  }
+  if (!offeredCourseSection) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      'offered Course section not found !!'
+    );
+  }
+
+  await prisma.$transaction(async transactionClint => {
+    await transactionClint.studentSemesterRegistrationCourse.create({
+      data: {
+        studentId: student?.id,
+        semesterRegistrationId: semesterRegistration?.id,
+        offeredCourseId: payload.offeredCourseId,
+        offeredCourseSectionId: payload.offeredCourseSectionId,
+      },
+    });
+
+    //koto jon enroll korse seter count update
+    await transactionClint.offeredCourseSection.update({
+      where: {
+        id: payload.offeredCourseSectionId,
+      },
+      data: {
+        currentlyEnrolledStudent: {
+          increment: 1,
+        },
+      },
+    });
+  });
+
+  return {};
+};
+
 export const SemesterRegistrationService = {
   insertIntoDB,
   getAllFromDB,
@@ -275,4 +354,5 @@ export const SemesterRegistrationService = {
   updateOneInDB,
   deleteByIdFromDB,
   startMyRegistration,
+  enrollIntoCourse,
 };

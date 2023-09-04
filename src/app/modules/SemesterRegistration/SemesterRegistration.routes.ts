@@ -16,6 +16,12 @@ router.post(
   SemesterRegistrationController.startMyRegistration
 );
 
+router.post(
+  '/enroll-into-course',
+  auth(ENUM_USER_ROLE.STUDENT),
+  SemesterRegistrationController.enrollIntoCourse
+);
+
 router.post('/', SemesterRegistrationController.insertIntoDB);
 
 router.patch(
