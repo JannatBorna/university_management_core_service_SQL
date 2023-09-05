@@ -16,13 +16,19 @@ router.post(
   SemesterRegistrationController.startMyRegistration
 );
 
+router.post('/', SemesterRegistrationController.insertIntoDB);
+
 router.post(
   '/enroll-into-course',
   auth(ENUM_USER_ROLE.STUDENT),
   SemesterRegistrationController.enrollIntoCourse
 );
 
-router.post('/', SemesterRegistrationController.insertIntoDB);
+router.post(
+  '/withdraw-from-course',
+  auth(ENUM_USER_ROLE.STUDENT),
+  SemesterRegistrationController.withdrawFromCourse
+);
 
 router.patch(
   '/:id',

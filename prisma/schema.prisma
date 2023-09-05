@@ -291,10 +291,17 @@ model StudentSemesterRegistrationCourse {
   createdAt              DateTime             @default(now())
   updatedAt              DateTime             @updatedAt
 
-  @@id([semesterRegistrationId, studentId, offeredCourseId])
+  @@id([semesterRegistrationId, studentId, offeredCourseId]) // এইখানে offeredCourseSection দেয়া হয় নাই কারণ  
   @@map("student_semester_registration_courses")
 }
 
+// এইখানে offeredCourseSection দেয়া হয় নাই কারণ  
+//  semesterRegistration id: a   ---- autum
+//  studentId: b                 ---- Borna
+//  offeredCourseId : c          ---  Math
+// offeredCourseSectionId: d / e ---  A/B  -- তাহলে একজন student এক subject(Math) ২ সেকশন এ নিবে এটা একটা প্রব্লেম তাই offeredCourseSectionId নেয়া হয় নাই 
+// abcd
+// abce
 
 enum SemesterRegistrationStatus {
   UPCOMING

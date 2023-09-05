@@ -1,0 +1,32 @@
+ [
+        {
+
+            "studentId": "0111810012",
+            "firstName": "Borna",
+            "lastName": "Jannat",
+            "middleName": "",
+            "profileImage": "https://static.toiimg.com/photo/msid-84068560/84068560.jpg",
+            "email": "borna@gmail.com",
+            "contactNo": "99967865543",
+            "gender": "Female",
+            "bloodGroup": "A+",
+            "academicSemesterId": "",
+            "academicDepartmentId": "",
+            "academicFacultyId": ""
+        },
+        {
+            "studentId": "0111810012",
+            "firstName": "suju",
+            "lastName": "juu",
+            "middleName": "ki",
+            "profileImage": "https://static.toiimg.com/photo/msid-84068560/84068560.jpg",
+            "email": "sujiki@gmail.com",
+            "contactNo": "99987865543",
+            "gender": "Male",
+            "bloodGroup": "A+",
+            "academicSemesterId": "",
+            "academicDepartmentId": "",
+            "academicFacultyId": ""
+
+        }
+    ]
