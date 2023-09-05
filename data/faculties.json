@@ -1,0 +1,50 @@
+ [
+        {
+            "facultyId": "F3",
+            "firstName": "MD",
+            "lastName": "Bbaset",
+            "middleName": "Abu",
+            "profileImage": "https://img.freepik.com/premium-vector/cartoon-happy-little-boy-waving-hand_353337-798.jpg?w=2000",
+            "email": "borna@gmail.com",
+            "contactNo": "7878888665543",
+            "gender": "Male",
+            "bloodGroup": "B+",
+            "designation": "Front-end Web Developer",
+            "createdAt": "2023-09-04T09:43:34.634Z",
+            "updatedAt": "2023-09-04T09:43:34.634Z",
+            "academicDepartmentId": "3f4ed7d4-424c-472f-9cd2-8371b6ad316b",
+            "academicFacultyId": "383b9be1-1d79-441b-9cc5-571cf17a12bf"
+        },
+        {
+            "facultyId": "F3",
+            "firstName": "Jannat",
+            "lastName": "Borna",
+            "middleName": "",
+            "profileImage": "https://imagesvibe.com/wp-content/uploads/2022/12/Cute-Cartoon-Images-For-Girl29.jpg",
+            "email": "borna@gmail.com",
+            "contactNo": "7878888665543",
+            "gender": "Female",
+            "bloodGroup": "B+",
+            "designation": "back-end Web Developer",
+            "createdAt": "2023-09-04T09:41:57.419Z",
+            "updatedAt": "2023-09-04T09:41:57.419Z",
+            "academicDepartmentId": "2b37055a-2864-4abe-a30a-a79a617ad760",
+            "academicFacultyId": "3813209f-d5d9-4334-8085-efd2f411d670"
+        },
+        {
+            "facultyId": "F3",
+            "firstName": "Junaina",
+            "lastName": "Ibnat",
+            "middleName": "Juhi",
+            "profileImage": "https://imagesvibe.com/wp-content/uploads/2022/12/Cute-Cartoon-Images-For-Girl29.jpg",
+            "email": "Juhi@gmail.com",
+            "contactNo": "78788778665543",
+            "gender": "Female",
+            "bloodGroup": "B+",
+            "designation": "back-end Web Developer",
+            "createdAt": "2023-09-04T09:41:26.832Z",
+            "updatedAt": "2023-09-04T09:41:26.832Z",
+            "academicDepartmentId": "2b37055a-2864-4abe-a30a-a79a617ad760",
+            "academicFacultyId": "3813209f-d5d9-4334-8085-efd2f411d670"
+        }
+    ]

@@ -1,0 +1,44 @@
+[
+        {
+            "year": 2024,
+            "title": "Pre-Winter",
+            "code": "06",
+            "startMonth": "March",
+            "endMonth": "December"
+        },
+        {
+            "year": 2024,
+            "title": "Spring",
+            "code": "05",
+            "startMonth": "February",
+            "endMonth": "June"
+        },
+        {
+            "year": 2024,
+            "title": "Winter",
+            "code": "03",
+            "startMonth": "January",
+            "endMonth": "June"
+        },
+        {
+            "year": 2024,
+            "title": "Summer",
+            "code": "02",
+            "startMonth": "January",
+            "endMonth": "June"
+        },
+        {
+            "year": 2023,
+            "title": "Monsoon",
+            "code": "04",
+            "startMonth": "January",
+            "endMonth": "November"
+        },
+        {
+            "year": 2023,
+            "title": "Update - Autumn",
+            "code": "update - 01",
+            "startMonth": "update - March",
+            "endMonth": "update - September"
+        }
+    ]

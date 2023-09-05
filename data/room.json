@@ -1,0 +1,22 @@
+ [
+        {
+            "roomNumber": "401",
+            "floor": "4rd",
+            "buildingId": "d9bdcf10-6ae2-425b-a785-56d38e528ffa"
+        },
+        {
+            "roomNumber": "301",
+            "floor": "3rd",
+            "buildingId": "5622c5d5-a6c4-4eba-a14e-79523b8a407e"
+        },
+        {
+            "roomNumber": "201",
+            "floor": "2nd",
+            "buildingId": "9a0952c3-dca0-4614-90f1-ab62f74d1fdf"
+        },
+        {
+            "roomNumber": "101",
+            "floor": "1st",
+            "buildingId": "07c91e0e-1d80-4512-acb7-61259f5554fb"
+        }
+    ]

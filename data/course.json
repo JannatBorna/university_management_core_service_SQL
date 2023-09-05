@@ -1,0 +1,33 @@
+[
+        {
+            "title": "Programming Language 2",
+            "code": "CSE202",
+            "credits": 2
+        },
+        {
+            "title": "Programming Language 1",
+            "code": "CSE102",
+            "credits": 3
+        },
+        {
+            "id": "02e27377-bfcb-4289-a891-62b52c55c15d",
+            "title": "Programming Language 4",
+            "code": "CSE402",
+            "credits": 3
+        },
+        {
+            "title": "Programming Language 3",
+            "code": "CSE302",
+            "credits": 2
+        },
+        {
+            "title": "Programming Language 2",
+            "code": "CSE302",
+            "credits": 2
+        },
+        {
+            "title": "Programming Language 1",
+            "code": "CSE102",
+            "credits": 4
+        }
+]
