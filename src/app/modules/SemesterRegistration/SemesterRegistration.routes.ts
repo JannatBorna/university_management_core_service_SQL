@@ -32,6 +32,12 @@ router.post(
   SemesterRegistrationController.withdrawFromCourse
 );
 
+router.post(
+  '/confrim-my-registration',
+  auth(ENUM_USER_ROLE.STUDENT),
+  SemesterRegistrationController.confirmMyRegistration
+);
+
 router.patch(
   '/:id',
   validateRequest(SemesterRegistrationValidation.update),

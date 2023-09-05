@@ -294,6 +294,76 @@ const withdrawFromCourse = async (
   );
 };
 
+// registration confirm korar jonno je button asbe otar kaj
+const confirmMyRegistration = async (
+  authUserId: string
+): Promise<{ message: string }> => {
+  const semesterRegistration = await prisma.semesterRegistration.findFirst({
+    where: {
+      status: SemesterRegistrationStatus.ONGOING,
+    },
+  });
+  // 3-6
+  const studentSemesterRegistration =
+    await prisma.studentSemesterRegistration.findFirst({
+      where: {
+        semesterRegistration: {
+          id: semesterRegistration?.id,
+        },
+        student: {
+          studentId: authUserId,
+        },
+      },
+    });
+  if (!studentSemesterRegistration) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      'you are not recognized for this semester!!'
+    );
+  }
+
+  //  totalCreditsTaken 0 thake error dibe
+  if (studentSemesterRegistration.totalCreditsTaken === 0) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      'You are not enrolled in any course'
+    );
+  }
+
+  //minCredit: 3, maxCredit: 6,  ache ki, na thake error dibe, bashi hole error dibe
+  //totalCreditsTaken(tct) = 3
+  // minC = 3
+  // maxC = 6
+  // tct < minC || tct > maxC ay condition hole error dibe
+
+  if (
+    studentSemesterRegistration.totalCreditsTaken &&
+    semesterRegistration?.minCredit &&
+    semesterRegistration.maxCredit &&
+    (studentSemesterRegistration.totalCreditsTaken <
+      semesterRegistration?.minCredit ||
+      studentSemesterRegistration.totalCreditsTaken >
+        semesterRegistration?.maxCredit)
+  ) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      `you can take only ${semesterRegistration.minCredit} to ${semesterRegistration.maxCredit} credits!!`
+    );
+  }
+  await prisma.studentSemesterRegistration.update({
+    where: {
+      id: studentSemesterRegistration.id,
+    },
+    data: {
+      isConfirmed: true,
+    },
+  });
+
+  return {
+    message: 'your registration is confirm!!',
+  };
+};
+
 export const SemesterRegistrationService = {
   insertIntoDB,
   getAllFromDB,
@@ -303,4 +373,5 @@ export const SemesterRegistrationService = {
   startMyRegistration,
   enrollIntoCourse,
   withdrawFromCourse,
+  confirmMyRegistration,
 };

@@ -114,6 +114,21 @@ const withdrawFromCourse = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+//registration confirm korar jonno je button asbe otar kaj
+const confirmMyRegistration = catchAsync(
+  async (req: Request, res: Response) => {
+    const user = (req as any).user;
+    const result = await SemesterRegistrationService.confirmMyRegistration(
+      user.userId
+    );
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'confrim our Registration successfully !!',
+      data: result,
+    });
+  }
+);
 export const SemesterRegistrationController = {
   insertIntoDB,
   getAllFromDB,
@@ -123,4 +138,5 @@ export const SemesterRegistrationController = {
   startMyRegistration,
   enrollIntoCourse,
   withdrawFromCourse,
+  confirmMyRegistration,
 };
