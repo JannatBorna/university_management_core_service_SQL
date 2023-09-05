@@ -20,12 +20,14 @@ router.post('/', SemesterRegistrationController.insertIntoDB);
 
 router.post(
   '/enroll-into-course',
+  validateRequest(SemesterRegistrationValidation.enrollOrWithdrawCourse),
   auth(ENUM_USER_ROLE.STUDENT),
   SemesterRegistrationController.enrollIntoCourse
 );
 
 router.post(
   '/withdraw-from-course',
+  validateRequest(SemesterRegistrationValidation.enrollOrWithdrawCourse),
   auth(ENUM_USER_ROLE.STUDENT),
   SemesterRegistrationController.withdrawFromCourse
 );
