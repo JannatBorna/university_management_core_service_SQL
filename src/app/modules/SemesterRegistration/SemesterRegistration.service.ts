@@ -395,7 +395,7 @@ const getMyRegistration = async (authUserId: string) => {
 };
 
 // new semester start
-const startNewSemester = async (id: string) => {
+const startNewSemester = async (id: string): Promise<{ message: string }> => {
   const semesterRegistration = await prisma.semesterRegistration.findUnique({
     where: {
       id,
@@ -416,17 +416,33 @@ const startNewSemester = async (id: string) => {
       'Semester Registration is not ended yet!!'
     );
   }
+  if (semesterRegistration.academicSemester.isCurrent) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Semester is already started!!');
+  }
 
-  const updateStatus = await prisma.academicSemester.update({
-    where: {
-      id: semesterRegistration.academicSemester.id,
-    },
-    data: {
-      isCurrent: true,
-    },
+  // akta semester true thakbe baki sob false hobe
+  await prisma.$transaction(async PrismaTransactionClint => {
+    await PrismaTransactionClint.academicSemester.updateMany({
+      where: {
+        isCurrent: true,
+      },
+      data: {
+        isCurrent: false,
+      },
+    });
+    await PrismaTransactionClint.academicSemester.update({
+      where: {
+        id: semesterRegistration.academicSemester.id,
+      },
+      data: {
+        isCurrent: true,
+      },
+    });
   });
-  // console.log(semesterRegistration);
-  return updateStatus;
+
+  return {
+    message: 'Semester started successfully!!',
+  };
 };
 
 export const SemesterRegistrationService = {
