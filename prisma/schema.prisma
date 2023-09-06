@@ -17,6 +17,7 @@ model  AcademicSemester {
   code       String
   startMonth String
   endMonth   String
+  isCurrent  Boolean?   @default(false)
   createAt   DateTime   @default(now())
   updateAt   DateTime   @updatedAt
   students   Student[]

@@ -38,10 +38,18 @@ router.post(
   SemesterRegistrationController.withdrawFromCourse
 );
 
+//confrim-my-registration
 router.post(
   '/confrim-my-registration',
   auth(ENUM_USER_ROLE.STUDENT),
   SemesterRegistrationController.confirmMyRegistration
+);
+
+//start new semester(id hobe semester registration id)
+router.post(
+  '/:id/start-new-semester',
+  auth(ENUM_USER_ROLE.ADMIN),
+  SemesterRegistrationController.startNewSemester
 );
 
 router.patch(
