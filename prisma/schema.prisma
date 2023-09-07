@@ -82,7 +82,7 @@ model Student {
 
   studentSemesterRegistrations StudentSemesterRegistration[]
   studentSemesterRegistrationCourses StudentSemesterRegistrationCourse[]
-    studentEnrollCourses  StudentEnrollCourse []
+  studentEnrollCourses  StudentEnrollCourse []
 
   @@map("students")
 }
