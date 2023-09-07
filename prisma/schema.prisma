@@ -22,6 +22,7 @@ model  AcademicSemester {
   updateAt   DateTime   @updatedAt
   students   Student[]
   semesterRegistrations SemesterRegistration[]
+    studentEnrollCourses  StudentEnrollCourse []
 
   @@map("academic_semesters")
 
@@ -81,6 +82,7 @@ model Student {
 
   studentSemesterRegistrations StudentSemesterRegistration[]
   studentSemesterRegistrationCourses StudentSemesterRegistrationCourse[]
+    studentEnrollCourses  StudentEnrollCourse []
 
   @@map("students")
 }
@@ -149,6 +151,7 @@ model Course {
   PreRequisiteFor CourseToPrerequisite[] @relation("PrerequisiteToCourse") // prerequisiteId
   faculties       CourseFaculty[]
   offeredCourses  OfferedCourse[]
+  studentEnrollCourses  StudentEnrollCourse []
 
   @@map("courses")
 }
@@ -303,6 +306,29 @@ model StudentSemesterRegistrationCourse {
 // offeredCourseSectionId: d / e ---  A/B  -- তাহলে একজন student এক subject(Math) ২ সেকশন এ নিবে এটা একটা প্রব্লেম তাই offeredCourseSectionId নেয়া হয় নাই 
 // abcd
 // abce
+model StudentEnrollCourse {
+  id                     String                      @id @default(uuid())
+  createdAt              DateTime                    @default(now())
+  updatedAt              DateTime                    @updatedAt
+
+  student Student @relation(fields: [studentId], references: [id])
+  studentId              String
+
+  course Course @relation(fields: [courseId], references: [id])
+  courseId               String
+
+  academicSemester AcademicSemester @relation(fields: [academicSemesterId], references: [id])
+  academicSemesterId     String
+
+  grade                  String?
+  point                  Float?                      @default(0)
+  totalMarks             Int?                        @default(0)
+  status                 StudentEnrollCourseStatus   @default(ONGOING)
+
+
+  @@map("student_enroll_course")
+}
+
 
 enum SemesterRegistrationStatus {
   UPCOMING
@@ -318,4 +344,10 @@ enum WeekDays {
   WEDNESDAY
   THURSDAY
   FRIDAY
+}
+
+enum StudentEnrollCourseStatus {
+  ONGOING
+  COMPLETED
+  WITHDRAWN
 }

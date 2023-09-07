@@ -97,3 +97,7 @@ Happy coding!
 ## ER Diagram 6 (Module-41)
 
 ![My Remote Image 6](https://i.ibb.co/fN9SVSG/module-41-drawio.png?dl=0)
+
+## ER Diagram 7 (Module-42)
+
+![My Remote Image 7](https://i.ibb.co/bFmMStC/module-42-drawio.png?dl=0)
