@@ -16,6 +16,21 @@ const updateStudentMarks = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const updateFinalMarksAverage = catchAsync(
+  async (req: Request, res: Response) => {
+    const result = await StudentEnrolledCourseMarkService.updateStudentMarks(
+      req.body
+    );
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'Final Marks Average updated!',
+      data: result,
+    });
+  }
+);
+
 export const StudentEnrolledCourseMarkConroller = {
   updateStudentMarks,
+  updateFinalMarksAverage,
 };
