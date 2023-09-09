@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { OfferedCourseSection, Prisma } from '@prisma/client';
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
@@ -5,22 +6,32 @@ import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import prisma from '../../../shared/prisma';
+import { asyncForEach } from '../../../shared/utils';
+import { OfferedCourseClassScheduleUtils } from '../offeredCourseClassSchedule/offeredCourseClassSchedule.utils';
 import {
   offeredCourseSectionRelationalFields,
   offeredCourseSectionRelationalFieldsMapper,
   offeredCourseSectionSearchableFields,
 } from './offeredCourseSection.constants';
-import { IOfferedCourseSectionFilterRequest } from './offeredCourseSection.interface';
+import {
+  IClassSchedules,
+  IOfferedCourseSectionCreate,
+  IOfferedCourseSectionFilterRequest,
+} from './offeredCourseSection.interface';
 
 //create
-const insertIntoDB = async (data: any): Promise<OfferedCourseSection> => {
+const insertIntoDB = async (
+  payload: IOfferedCourseSectionCreate
+): Promise<OfferedCourseSection | null> => {
   //offeredCourse jodi kno course create kora na thake tahole offeredCourseSection create hobe na
+  const { classSchedules, ...data } = payload;
+
   const isEsistOfferedCourse = await prisma.offeredCourse.findFirst({
     where: {
       id: data.offeredCourseId,
     },
   });
-  console.log(isEsistOfferedCourse);
+  // console.log('data: ', data);
   if (!isEsistOfferedCourse) {
     throw new ApiError(
       httpStatus.BAD_REQUEST,
@@ -28,10 +39,76 @@ const insertIntoDB = async (data: any): Promise<OfferedCourseSection> => {
     );
   }
   // semesterRegistrationId jehutu OfferedCourse ache tai postmen a semesterRegistrationId na diye ay khene data ay vabe niya create hoye jabe
-  data.semesterRegistrationId = isEsistOfferedCourse.semesterRegistrationId;
 
-  const result = await prisma.offeredCourseSection.create({
-    data,
+  await asyncForEach(classSchedules, async (schedule: any) => {
+    await OfferedCourseClassScheduleUtils.checkRoomAvailable(schedule);
+    await OfferedCourseClassScheduleUtils.checkFacultyAvailable(schedule);
+  });
+
+  const offerCourseSectionData = await prisma.offeredCourseSection.findFirst({
+    where: {
+      offeredCourse: {
+        id: data.offeredCourseId,
+      },
+      title: data.title,
+    },
+  });
+
+  if (offerCourseSectionData) {
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      'Course section already exists !!'
+    );
+  }
+
+  const createSection = await prisma.$transaction(async transactionClient => {
+    const createOfferedCourseSection =
+      await transactionClient.offeredCourseSection.create({
+        data: {
+          title: data.title,
+          maxCapacity: data.maxCapacity,
+          offeredCourseId: data.offeredCourseId,
+          semesterRegistrationId: isEsistOfferedCourse.semesterRegistrationId,
+        },
+      });
+
+    const scheduleData = classSchedules.map((schedule: IClassSchedules) => ({
+      startTime: schedule.startTime,
+      endTime: schedule.endTime,
+      dayOfWeek: schedule.dayOfWeek,
+      roomId: schedule.roomId,
+      facultyId: schedule.facultyId,
+      offeredCourseSectionId: createOfferedCourseSection.id,
+      semesterRegistrationId: isEsistOfferedCourse.semesterRegistrationId,
+    }));
+
+    await transactionClient.offeredCourseClassSchedule.createMany({
+      data: scheduleData,
+    });
+    return createOfferedCourseSection;
+  });
+
+  const result = await prisma.offeredCourseSection.findFirst({
+    where: {
+      id: createSection.id,
+    },
+    include: {
+      offeredCourse: {
+        include: {
+          course: true,
+        },
+      },
+      offeredCourseClassSchedules: {
+        include: {
+          room: {
+            include: {
+              building: true,
+            },
+          },
+          faculty: true,
+        },
+      },
+    },
   });
   return result;
 };
