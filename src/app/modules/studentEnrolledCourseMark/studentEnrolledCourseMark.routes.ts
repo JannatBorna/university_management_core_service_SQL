@@ -8,9 +8,12 @@ router.patch(
   StudentEnrolledCourseMarkConroller.updateStudentMarks
 );
 
+// router.patch(
+// '/update-average-marks',
+// StudentEnrolledCourseMarkConroller.updateFinalMarksAverage
+// );
 router.patch(
-  '/update-final-marks-average',
+  '/update-average-marks',
   StudentEnrolledCourseMarkConroller.updateFinalMarksAverage
 );
-
 export const studentEnrolledCourseMarkRoutes = router;
