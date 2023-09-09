@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Prisma, Student } from '@prisma/client';
 import { paginationHelpers } from '../../../helpers/paginationHelper';
 import { IGenericResponse } from '../../../interfaces/common';
@@ -149,10 +150,42 @@ const deleteFromDB = async (id: string): Promise<Student> => {
   return result;
 };
 
+// my course data fetch
+const myCourses = async (
+  authUserId: string,
+  filter: {
+    courseId?: string | undefined;
+    academicSemesterId?: string | undefined;
+  }
+) => {
+  if (!filter.academicSemesterId) {
+    const currentSemester = await prisma.academicSemester.findFirst({
+      where: {
+        isCurrent: true,
+      },
+    });
+    filter.academicSemesterId = currentSemester?.id;
+  }
+
+  const result = await prisma.studentEnrollCourse.findMany({
+    where: {
+      student: {
+        studentId: authUserId,
+      },
+      ...filter,
+    },
+    include: {
+      course: true,
+    },
+  });
+  return result;
+};
+
 export const StudentService = {
   insertIntoDB,
   getAllFromDB,
   getByIdFromDB,
   updateIntoDB,
   deleteFromDB,
+  myCourses,
 };
