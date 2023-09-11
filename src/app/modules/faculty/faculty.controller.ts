@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
@@ -12,7 +13,7 @@ const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Faculty created successfully',
+    message: 'Faculty created successfully!!',
     data: result,
   });
 });
@@ -25,7 +26,7 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Faculties fetched successfully',
+    message: 'Faculties fetched successfully!!',
     meta: result.meta,
     data: result.data,
   });
@@ -38,7 +39,7 @@ const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Faculty fetched successfully',
+    message: 'Faculty fetched successfully!!',
     data: result,
   });
 });
@@ -50,7 +51,7 @@ const updateOneInDB = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Faculty updated successfully',
+    message: 'Faculty updated successfully!!',
     data: result,
   });
 });
@@ -62,7 +63,7 @@ const deleteByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Faculty delete successfully',
+    message: 'Faculty delete successfully!!',
     data: result,
   });
 });
@@ -75,7 +76,7 @@ const assignCourses = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'course faculty assign successfully',
+    message: 'course faculty assign successfully!!',
     data: result,
   });
 });
@@ -88,7 +89,21 @@ const removeCourses = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'course faculty deleted successfully',
+    message: 'course faculty deleted successfully!!',
+    data: result,
+  });
+});
+
+// আমি একজন faculty, আমি কোন কোন course গুলো নিবো তার লিষ্ট দেখতে চাই
+const myCourses = catchAsync(async (req: Request, res: Response) => {
+  const user = (req as any).user;
+  // console.log('user', user);
+  const filter = pick(req.query, ['academicSemesterId', 'courseId']);
+  const result = await FacultyService.myCourses(user, filter);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'My Courses Data fetch successfully!!',
     data: result,
   });
 });
@@ -101,4 +116,5 @@ export const FacultyController = {
   deleteByIdFromDB,
   assignCourses,
   removeCourses,
+  myCourses,
 };

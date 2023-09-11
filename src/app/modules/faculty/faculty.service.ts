@@ -187,6 +187,94 @@ const removeCourses = async (
   return assignCoursesData;
 };
 
+// আমি একজন faculty, আমি কোন কোন course গুলো নিবো তার লিষ্ট দেখতে চাই
+const myCourses = async (
+  authUser: {
+    userId: string; // jwt thake
+    role: string;
+  },
+  filter: {
+    academicSemesterId?: string | null | undefined;
+    courseId?: string | null | undefined;
+  }
+) => {
+  // console.log('My course', authUser);
+  if (!filter.academicSemesterId) {
+    const currentSemester = await prisma.academicSemester.findFirst({
+      where: {
+        isCurrent: true,
+      },
+    });
+    filter.academicSemesterId = currentSemester?.id;
+  }
+  const offeredCourseSections = await prisma.offeredCourseSection.findMany({
+    where: {
+      offeredCourseClassSchedules: {
+        some: {
+          // kisue te data ache kisue te nai tai some use kora hoyese
+          faculty: {
+            facultyId: authUser.userId,
+          },
+        },
+      },
+      offeredCourse: {
+        semesterRegistration: {
+          academicSemester: {
+            id: filter.academicSemesterId,
+          },
+        },
+      },
+    },
+    include: {
+      offeredCourse: {
+        include: {
+          course: true,
+        },
+      },
+      offeredCourseClassSchedules: {
+        include: {
+          room: {
+            include: {
+              building: true,
+            },
+          },
+        },
+      },
+    },
+  });
+  //duplicate data থাকলে remove করবো (এর জন্য reduce ব্যবহার করবো) (acc - accumulator, obj - object)
+  const courseAndSchedule = offeredCourseSections.reduce(
+    (acc: any, obj: any) => {
+      // console.log(obj);
+      const course = obj.offeredCourse.course;
+      const classScheduled = obj.offeredCourseClassSchedules;
+
+      const existingCourse = acc.find(
+        (item: any) => item.course?.id === course?.id
+      );
+      if (existingCourse) {
+        existingCourse.sections.push({
+          section: obj,
+          classScheduled,
+        });
+      } else {
+        acc.push({
+          course,
+          sections: [
+            {
+              section: obj,
+              classScheduled,
+            },
+          ],
+        });
+      }
+      return acc;
+    },
+    []
+  );
+  return courseAndSchedule;
+};
+
 export const FacultyService = {
   insertIntoDB,
   getAllFromDB,
@@ -195,4 +283,5 @@ export const FacultyService = {
   deleteByIdFromDB,
   assignCourses,
   removeCourses,
+  myCourses,
 };
