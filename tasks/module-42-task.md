@@ -1,4 +1,6 @@
-# 1. Intrgrate get data by id, filter data, update and delete functionalities in the following modules
+# (not Done)
+
+## 1. Intrgrate get data by id, filter data, update and delete functionalities in the following modules
 
 - Student Enrolled Course ( filter, get single data by id, update and delete data )
 - Student Enrolled Course Mark (get all from DB (without filtering))
