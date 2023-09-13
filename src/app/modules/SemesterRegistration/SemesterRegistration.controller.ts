@@ -160,7 +160,7 @@ const startNewSemester = catchAsync(async (req: Request, res: Response) => {
 const getMySemesterRegCourses = catchAsync(
   async (req: Request, res: Response) => {
     const user = (req as any).user;
-    const result = await SemesterRegistrationService.getMySemesterRegCourses(
+    const result = await SemesterRegistrationService.getMySemesterRegCouses(
       user.userId
     );
     sendResponse(res, {

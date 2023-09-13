@@ -553,13 +553,15 @@ const startNewSemester = async (
 };
 
 //আমি কোন কোন course এ enroll করতে পারি  তার লিস্ট
-const getMySemesterRegCourses = async (authUserId: string) => {
+const getMySemesterRegCouses = async (authUserId: string) => {
   const student = await prisma.student.findFirst({
     where: {
       studentId: authUserId,
     },
   });
-  // console.log(student);
+
+  //console.log(student);
+
   const semesterRegistration = await prisma.semesterRegistration.findFirst({
     where: {
       status: {
@@ -574,10 +576,11 @@ const getMySemesterRegCourses = async (authUserId: string) => {
     },
   });
   // console.log(semesterRegistration);
+
   if (!semesterRegistration) {
     throw new ApiError(
       httpStatus.BAD_REQUEST,
-      'No semester Registration Not Found'
+      'No semester registration not found!!'
     );
   }
 
@@ -594,6 +597,7 @@ const getMySemesterRegCourses = async (authUserId: string) => {
     },
   });
   // console.log(studentCompleteCourse);
+
   //student কোন কোন course already নিয়েছে
   const studentCurrentSemesterTakenCourse =
     await prisma.studentSemesterRegistrationCourse.findMany({
@@ -610,12 +614,13 @@ const getMySemesterRegCourses = async (authUserId: string) => {
         offeredCourseSection: true,
       },
     });
-  // console.log(StudentCurrentSemesterTakenCourse);
+  // console.log(studentCurrentSemesterTakenCourse);
+
   //university থাকে কি কি course offered করেছে তার list
   const offeredCourse = await prisma.offeredCourse.findMany({
     where: {
       semesterRegistration: {
-        id: semesterRegistration?.id,
+        id: semesterRegistration.id,
       },
       academicDepartment: {
         id: student?.academicDepartmentId,
@@ -646,7 +651,8 @@ const getMySemesterRegCourses = async (authUserId: string) => {
       },
     },
   });
-  // console.log('offeredCourse', offeredCourse);
+
+  // available course utils thke
   const availableCourses = SemesterRegistrationUtils.getAvailableCourses(
     offeredCourse,
     studentCompletedCourse,
@@ -667,5 +673,5 @@ export const SemesterRegistrationService = {
   confirmMyRegistration,
   getMyRegistration,
   startNewSemester,
-  getMySemesterRegCourses,
+  getMySemesterRegCouses,
 };
