@@ -1,4 +1,6 @@
-# 1.Intrgrate get data by id, filter data, update and delete functionalities in the following modules
+# (DOME)✅
+
+## 1.Intrgrate get data by id, filter data, update and delete functionalities in the following modules
 
 - Semester Registration ( filter, get single data by id, update and delete data )  --- done ✅
 
