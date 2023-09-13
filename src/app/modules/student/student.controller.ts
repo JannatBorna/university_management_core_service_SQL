@@ -79,6 +79,19 @@ const myCourses = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+//student যে যে course এ enrolled করেছে সবগুলো course complete Schedules যেন দেখতে পারে / ক্লাস রুটিন দেখা
+const getMyCourseSchedules = catchAsync(async (req: Request, res: Response) => {
+  const filter = pick(req.query, ['courseId', 'academicSemesterId']);
+  const user = (req as any).user;
+  const result = await StudentService.getMyCourseSchedules(user.userId, filter);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'My Course Schedules fetched data successfully !!',
+    data: result,
+  });
+});
+
 export const StudentController = {
   insertIntoDB,
   getAllFromDB,
@@ -86,4 +99,5 @@ export const StudentController = {
   updateIntoDB,
   deleteFromDB,
   myCourses,
+  getMyCourseSchedules,
 };
