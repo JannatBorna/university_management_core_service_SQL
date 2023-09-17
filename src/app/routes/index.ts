@@ -61,12 +61,12 @@ const moduleRoutes = [
   },
 
   {
-    path: '/offered-courses-section',
+    path: '/offered-course-sections',
     route: offeredCourseSectionRoutes,
   },
 
   {
-    path: '/offered-courses-class-schedules',
+    path: '/offered-course-class-schedules',
     route: offeredCourseClassScheduleRoutes,
   },
   {
