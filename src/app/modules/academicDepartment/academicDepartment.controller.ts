@@ -16,7 +16,6 @@ const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-//all data fetch
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
   const filters = pick(req.query, academicDepartmentFilterableFields);
   const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
@@ -30,7 +29,6 @@ const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-//single data fetch
 const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await AcademicDepartmentService.getByIdFromDB(id);
@@ -42,7 +40,6 @@ const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-//update
 const updateOneInDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await AcademicDepartmentService.updateOneInDB(id, req.body);
@@ -54,7 +51,6 @@ const updateOneInDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-//delete
 const deleteByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await AcademicDepartmentService.deleteByIdFromDB(id);

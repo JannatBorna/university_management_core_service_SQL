@@ -4,56 +4,43 @@ import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
 import pick from '../../../shared/pick';
 import sendResponse from '../../../shared/sendResponse';
-import { AcademicSemesterSearchFilterAbleFields } from './academicSemester.contants';
+import { AcademicSemesterFilterAbleFileds } from './academicSemester.contants';
 import { AcademicSemesterService } from './academicSemester.service';
 
-// create
-
-// try and catch এর পরিবর্তে catchAsync করা হলো
 const insertIntoDB = catchAsync(async (req: Request, res: Response) => {
   const result = await AcademicSemesterService.insertIntoDB(req.body);
   sendResponse<AcademicSemester>(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Acedemic Semster Created !!',
+    message: 'Academic Semster Created!!',
     data: result,
   });
 });
 
-// get data fetched
 const getAllFromDB = catchAsync(async (req: Request, res: Response) => {
-  //   console.log(req.query);
-  const filters = pick(req.query, [
-    'searchTerm',
-    'code',
-    'startMonth',
-    'endMonth',
-  ]);
-  const options = pick(req.query, AcademicSemesterSearchFilterAbleFields);
-  //   console.log('filters', filters);
-  //   console.log('options', options);
+  const filters = pick(req.query, AcademicSemesterFilterAbleFileds);
+  const options = pick(req.query, ['limit', 'page', 'sortBy', 'sortOrder']);
+
   const result = await AcademicSemesterService.getAllFromDB(filters, options);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Acedemic Semster data fetched !!',
+    message: 'Academic Semster data fetched!!',
     meta: result.meta,
     data: result.data,
   });
 });
 
-// id dara single data get
 const getDataById = catchAsync(async (req: Request, res: Response) => {
   const result = await AcademicSemesterService.getDataById(req.params.id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Acedemic Semster data fetched !!',
+    message: 'Academic Semster data fetched!!',
     data: result,
   });
 });
 
-// updated
 const updateOneInDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await AcademicSemesterService.updateOneInDB(id, req.body);
@@ -65,7 +52,6 @@ const updateOneInDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-//deleted
 const deleteByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await AcademicSemesterService.deleteByIdFromDB(id);
@@ -77,7 +63,7 @@ const deleteByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-export const AcademicSemesterController = {
+export const AcademicSemeterController = {
   insertIntoDB,
   getAllFromDB,
   getDataById,

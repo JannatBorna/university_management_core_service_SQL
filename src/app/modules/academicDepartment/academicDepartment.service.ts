@@ -15,7 +15,6 @@ import {
 } from './academicDepartment.contants';
 import { IAcademicDepartmentFilterRequest } from './academicDepartment.interface';
 
-//create
 const insertIntoDB = async (
   data: AcademicDepartment
 ): Promise<AcademicDepartment> => {
@@ -25,6 +24,7 @@ const insertIntoDB = async (
       academicFaculty: true,
     },
   });
+
   if (result) {
     await RedisClient.publish(
       EVENT_ACADEMIC_DEPARTMENT_CREATED,
@@ -35,7 +35,6 @@ const insertIntoDB = async (
   return result;
 };
 
-// all data fetch
 const getAllFromDB = async (
   filters: IAcademicDepartmentFilterRequest,
   options: IPaginationOptions
@@ -88,9 +87,7 @@ const getAllFromDB = async (
     take: limit,
     orderBy:
       options.sortBy && options.sortOrder
-        ? {
-            [options.sortBy]: options.sortOrder,
-          }
+        ? { [options.sortBy]: options.sortOrder }
         : {
             createAt: 'desc',
           },
@@ -109,7 +106,6 @@ const getAllFromDB = async (
   };
 };
 
-// single data fetch
 const getByIdFromDB = async (
   id: string
 ): Promise<AcademicDepartment | null> => {
@@ -124,7 +120,6 @@ const getByIdFromDB = async (
   return result;
 };
 
-//update
 const updateOneInDB = async (
   id: string,
   payload: Partial<AcademicDepartment>
@@ -147,7 +142,6 @@ const updateOneInDB = async (
   return result;
 };
 
-// delete
 const deleteByIdFromDB = async (id: string): Promise<AcademicDepartment> => {
   const result = await prisma.academicDepartment.delete({
     where: {
