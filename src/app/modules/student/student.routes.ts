@@ -8,6 +8,7 @@ import { StudentValidation } from './student.validations';
 const router = express.Router();
 
 router.get('/', StudentController.getAllFromDB);
+
 router.get(
   '/my-courses',
   auth(ENUM_USER_ROLE.STUDENT),
@@ -15,37 +16,35 @@ router.get(
 );
 
 router.get(
-  '/my-courses-schedules',
+  '/my-course-schedules',
   auth(ENUM_USER_ROLE.STUDENT),
   StudentController.getMyCourseSchedules
 );
-
 router.get(
   '/my-academic-info',
   auth(ENUM_USER_ROLE.STUDENT),
-  StudentController.getMyAcademicInfo
+  StudentController.myAcademicInfo
 );
 
 router.get('/:id', StudentController.getByIdFromDB);
 
 router.post(
   '/',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN), // jwt token
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   validateRequest(StudentValidation.create),
   StudentController.insertIntoDB
 );
-//update
+
 router.patch(
   '/:id',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN), // jwt token
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   validateRequest(StudentValidation.update),
   StudentController.updateIntoDB
 );
-// delete
 
 router.delete(
   '/:id',
-  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN), // jwt token
+  auth(ENUM_USER_ROLE.SUPER_ADMIN, ENUM_USER_ROLE.ADMIN),
   StudentController.deleteFromDB
 );
 

@@ -41,7 +41,6 @@ const getByIdFromDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-//update
 const updateIntoDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const payload = req.body;
@@ -49,12 +48,11 @@ const updateIntoDB = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Student updateed successfully',
+    message: 'Student updated successfully',
     data: result,
   });
 });
 
-// delete
 const deleteFromDB = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
   const result = await StudentService.deleteFromDB(id);
@@ -66,40 +64,37 @@ const deleteFromDB = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-//  my course data fetch
 const myCourses = catchAsync(async (req: Request, res: Response) => {
-  const filter = pick(req.query, ['courseId', 'academicSemesterId']);
   const user = (req as any).user;
+  const filter = pick(req.query, ['courseId', 'academicSemesterId']);
   const result = await StudentService.myCourses(user.userId, filter);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Student courses fetched data successfully',
+    message: 'Student Courses data fetched successfully',
     data: result,
   });
 });
 
-//student যে যে course এ enrolled করেছে সবগুলো course complete Schedules যেন দেখতে পারে / ক্লাস রুটিন দেখা
 const getMyCourseSchedules = catchAsync(async (req: Request, res: Response) => {
-  const filter = pick(req.query, ['courseId', 'academicSemesterId']);
   const user = (req as any).user;
+  const filter = pick(req.query, ['courseId', 'academicSemesterId']);
   const result = await StudentService.getMyCourseSchedules(user.userId, filter);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'My Course Schedules fetched data successfully !!',
+    message: 'Course Schedules data fetched successfully',
     data: result,
   });
 });
 
-//student এর একাডেমিক পারফরমেন্স ডাটা গুলো দেখাবে
-const getMyAcademicInfo = catchAsync(async (req: Request, res: Response) => {
+const myAcademicInfo = catchAsync(async (req: Request, res: Response) => {
   const user = (req as any).user;
   const result = await StudentService.getMyAcademicInfo(user.userId);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'My Academic Info fetched data successfully !!',
+    message: 'My Academic Info data fetched successfully',
     data: result,
   });
 });
@@ -112,5 +107,5 @@ export const StudentController = {
   deleteFromDB,
   myCourses,
   getMyCourseSchedules,
-  getMyAcademicInfo,
+  myAcademicInfo,
 };

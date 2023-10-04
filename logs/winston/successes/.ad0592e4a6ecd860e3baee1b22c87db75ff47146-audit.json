@@ -124,6 +124,11 @@
             "date": 1695385041209,
             "name": "/Users/jannatborna/Documents/WEB-DEVELOPER/Next-Level-WD/Miss-6-SQL/UV_core_service_SQL/logs/winston/successes/phu-2023-22-09-18-success.log",
             "hash": "3302fae52f1aedf776fd6d2a9a21ece16a2d6a1019435200881918d8a063648a"
+        },
+        {
+            "date": 1695825582832,
+            "name": "/Users/jannatborna/Documents/WEB-DEVELOPER/Next-Level-WD/Miss-6-SQL/UV_core_service_SQL/logs/winston/successes/phu-2023-27-09-20-success.log",
+            "hash": "65a42d192611f43d4b0bb00984f5426912ae91de0d412082412c71b37f947289"
         }
     ],
     "hashType": "sha256"

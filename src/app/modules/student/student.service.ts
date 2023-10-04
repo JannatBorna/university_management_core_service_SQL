@@ -24,7 +24,6 @@ const insertIntoDB = async (data: Student): Promise<Student> => {
   return result;
 };
 
-// all data fetch
 const getAllFromDB = async (
   filters: IStudentFilterRequest,
   options: IPaginationOptions
@@ -98,7 +97,6 @@ const getAllFromDB = async (
   };
 };
 
-// single data fetch
 const getByIdFromDB = async (id: string): Promise<Student | null> => {
   const result = await prisma.student.findUnique({
     where: {
@@ -113,9 +111,6 @@ const getByIdFromDB = async (id: string): Promise<Student | null> => {
   return result;
 };
 
-//update
-// sob gulo data update toh korbo na tai (partial) use korbo
-// amra kokhno 1 ta data update korte pari bha kokhno 1 er odhik data update korte pari tai (validation) use korbo
 const updateIntoDB = async (
   id: string,
   payload: Partial<Student>
@@ -125,33 +120,29 @@ const updateIntoDB = async (
       id,
     },
     data: payload,
-    // je son jinis dekte chai
     include: {
       academicSemester: true,
-      academicFaculty: true,
       academicDepartment: true,
+      academicFaculty: true,
     },
   });
   return result;
 };
 
-// delete
 const deleteFromDB = async (id: string): Promise<Student> => {
   const result = await prisma.student.delete({
     where: {
       id,
     },
-    // je son jinis dekte chai
     include: {
       academicSemester: true,
-      academicFaculty: true,
       academicDepartment: true,
+      academicFaculty: true,
     },
   });
   return result;
 };
 
-// my course data fetch
 const myCourses = async (
   authUserId: string,
   filter: {
@@ -179,10 +170,10 @@ const myCourses = async (
       course: true,
     },
   });
+
   return result;
 };
 
-//student যে যে course এ enrolled করেছে সবগুলো course complete Schedules যেন দেখতে পারে / ক্লাস রুটিন দেখা
 const getMyCourseSchedules = async (
   authUserId: string,
   filter: {
@@ -190,7 +181,6 @@ const getMyCourseSchedules = async (
     academicSemesterId?: string | undefined;
   }
 ) => {
-  // console.log(authUserId, filter);
   if (!filter.academicSemesterId) {
     const currentSemester = await prisma.academicSemester.findFirst({
       where: {
@@ -247,9 +237,7 @@ const getMyCourseSchedules = async (
   return result;
 };
 
-//student এর একাডেমিক পারফরমেন্স ডাটা গুলো দেখাবে
 const getMyAcademicInfo = async (authUserId: string): Promise<any> => {
-  console.log(authUserId);
   const academicInfo = await prisma.studentAcademicInfo.findFirst({
     where: {
       student: {
@@ -273,7 +261,7 @@ const getMyAcademicInfo = async (authUserId: string): Promise<any> => {
       createdAt: 'asc',
     },
   });
-  // console.log(enrolledCourses);
+
   const groupByAcademicSemesterData =
     StudentUtils.groupByAcademicSemester(enrolledCourses);
 
@@ -301,6 +289,40 @@ const createStudentFromEvent = async (e: any) => {
   await insertIntoDB(studentData as Student);
 };
 
+const updateStudentFromEvent = async (e: any): Promise<void> => {
+  const isExist = await prisma.student.findFirst({
+    where: {
+      studentId: e.id,
+    },
+  });
+
+  if (!isExist) {
+    await createStudentFromEvent(e);
+    return;
+  } else {
+    const student: Partial<Student> = {
+      studentId: e.id,
+      firstName: e.name.firstName,
+      lastName: e.name.lastName,
+      middleName: e.name.middleName,
+      profileImage: e.profileImage,
+      email: e.email,
+      contactNo: e.contactNo,
+      gender: e.gender,
+      bloodGroup: e.bloodGroup,
+      academicDepartmentId: e.academicDepartment.syncId,
+      academicFacultyId: e.academicFaculty.syncId,
+      academicSemesterId: e.academicSemester.syncId,
+    };
+    await prisma.student.updateMany({
+      where: {
+        studentId: e.id,
+      },
+      data: student as Student,
+    });
+  }
+};
+
 export const StudentService = {
   insertIntoDB,
   getAllFromDB,
@@ -311,4 +333,5 @@ export const StudentService = {
   getMyCourseSchedules,
   getMyAcademicInfo,
   createStudentFromEvent,
+  updateStudentFromEvent,
 };

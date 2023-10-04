@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const groupByAcademicSemester = (data: any) => {
-  console.log(data);
   const groupData = data.reduce((result: any, course: any) => {
     const academicSemester = course.academicSemester;
     const academicSemesterId = academicSemester.id;
